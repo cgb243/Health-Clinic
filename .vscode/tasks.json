@@ -3,15 +3,15 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
             "type": "process",
+            "command": "dotnet",
             "args": [
                 "build",
                 "${workspaceFolder}/App.Clinic.csproj",
-                "-f",
-                "net8.0-maccatalyst"
+                "-f:net8.0-maccatalyst"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": "build"
         }
     ]
 }

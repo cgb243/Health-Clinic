@@ -7,9 +7,18 @@
     <VerticalStackLayout>
         <ListView
             ItemsSource ="{Binding Patients}"
-            SelectedItem="{Binding SelectedPatient}"
-            ></ListView>
-        <Button Text ="Add" Clicked ="AddClicked"/>  
+            SelectedItem="{Binding SelectedPatient}"      
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+        <Button Text ="Add" Clicked ="AddClicked"/> 
+        <Button Text ="Edit" Clicked ="EditClicked"/>   
         <Button Text ="Delete" Clicked ="DeleteClicked"/>  
         <Button Text ="Cancel" Clicked ="CancelClicked"/>
     </VerticalStackLayout>

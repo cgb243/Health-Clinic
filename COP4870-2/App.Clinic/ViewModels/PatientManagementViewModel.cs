@@ -43,7 +43,7 @@ public class PatientManagementViewModel : INotifyPropertyChanged
 
 	public void Refresh()
 	{
-		NotifyPropertyChanged("Patients");
+		NotifyPropertyChanged(nameof(Patients));
 	}
 	
 }
