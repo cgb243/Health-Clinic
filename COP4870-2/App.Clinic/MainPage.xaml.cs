@@ -12,6 +12,11 @@
         {
             Shell.Current.GoToAsync("//Patients");
         }
+
+        private void PhysiciansClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//Physicians");
+        }
     }
 
 }

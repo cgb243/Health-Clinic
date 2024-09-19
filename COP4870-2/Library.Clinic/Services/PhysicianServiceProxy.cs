@@ -48,13 +48,19 @@ namespace Library.Clinic.Services
 
         public List<Physician> Physicians { get; private set;}
 
-        public void AddPhysician(Physician physician)
+        public void AddOrUpdatePhysician(Physician physician)
         {
+            bool isAdd = false;
             if (physician.Id <= 0)
             {
                 physician.Id = LastKey + 1;
+                isAdd = true;
             }
-            Physicians.Add(physician);
+            if (isAdd)
+            {
+                Physicians.Add(physician);
+            }
+        
         }
 
         public void DeletePhysician(int id) {
