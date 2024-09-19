@@ -5,9 +5,6 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-		
-		//AppDomain.CurrentDomain.UnhandledException += HandleUnhandledException;
-
 		MainPage = new AppShell();
 	}
 

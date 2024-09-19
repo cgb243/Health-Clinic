@@ -9,41 +9,40 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Clinic.ViewModels;
-
-public class PatientManagementViewModel : INotifyPropertyChanged
+namespace App.Clinic.ViewModels
 {
+    public class PatientManagementViewModel: INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-	public event PropertyChangedEventHandler? PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
-	public ObservableCollection<Patient> Patients
-	{
-		get
-		{
-			return new ObservableCollection<Patient>(PatientServiceProxy.Current.Patients);
-		}
-	}
+        public Patient? SelectedPatient { get; set; }
+        public ObservableCollection<Patient> Patients
+        {
+            get
+            {
+                return new ObservableCollection<Patient>(PatientServiceProxy.Current.Patients);
+            }
+        }
 
-	public Patient? SelectedPatient { get; set; }
-	private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-	{
-		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-	}
+        public void Delete()
+        {
+            if(SelectedPatient == null)
+            {
+                return;
+            }
+            PatientServiceProxy.Current.DeletePatient(SelectedPatient.Id);
 
-	public void Delete()
-	{
-		if (SelectedPatient == null)
-		{
-			return;
-		}
-		PatientServiceProxy.Current.DeletePatient(SelectedPatient.Id);
+            Refresh();
+        }
 
-		Refresh();
-	}
-
-	public void Refresh()
-	{
-		NotifyPropertyChanged(nameof(Patients));
-	}
-	
+        public void Refresh()
+        {
+            NotifyPropertyChanged(nameof(Patients));
+        }
+    }
 }

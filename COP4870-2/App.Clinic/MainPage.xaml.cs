@@ -1,18 +1,17 @@
-﻿namespace App.Clinic;
-
-public partial class MainPage : ContentPage
+﻿namespace App.Clinic
 {
-
-	public MainPage()
-	{
-		InitializeComponent();
-	}
-
-    private void PatientsClicked(object sender, EventArgs e)
+    public partial class MainPage : ContentPage
     {
-		Shell.Current.GoToAsync("//Patients");
+
+        public MainPage()
+        {
+            InitializeComponent();
+        }
+
+        private void PatientsClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//Patients");
+        }
     }
 
-	
 }
-

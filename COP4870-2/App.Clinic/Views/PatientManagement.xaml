@@ -9,13 +9,13 @@
             ItemsSource ="{Binding Patients}"
             SelectedItem="{Binding SelectedPatient}"      
             >
-            <ListView.ItemTemplate>
+            <!--!==<ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+            </ListView.ItemTemplate>-->
             </ListView>
         <Button Text ="Add" Clicked ="AddClicked"/> 
         <Button Text ="Edit" Clicked ="EditClicked"/>   

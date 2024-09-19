@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PatientView"
              Title="PatientView"
-             NavigatedTo="PatientView_NavigatedTo">
+             NavigatedTo="PatientView_NavigatedTo"
+             >
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -13,14 +14,13 @@
             <Label Grid.Column="0" Text="Name:"/>
             <Entry Grid.Column="1" Text="{Binding Name}"/>
         </Grid>
-        <Button 
-            Text="Add"
+        <Button
+            Text="Ok"
             Clicked="AddClicked"
             />
-        <Button 
+        <Button
             Text="Cancel"
             Clicked="CancelClicked"
             />
-
     </VerticalStackLayout>
 </ContentPage>

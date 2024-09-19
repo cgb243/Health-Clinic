@@ -16,9 +16,9 @@
         Title="Manage Patients"
         ContentTemplate="{DataTemplate views:PatientManagement}"
         Route="Patients" />
-    <ShellContent 
+    <ShellContent
         Title="Patient Details"
-        ContentTemplate="{DataTemplate views:PatientManagement}"
-        Route="Patients" />
+        ContentTemplate="{DataTemplate views:PatientView}"
+        Route="PatientDetails" />
 
 </Shell>
