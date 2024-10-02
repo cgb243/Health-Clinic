@@ -9,40 +9,48 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Clinic.ViewModels;
-
-public class PhysicianManagementViewModel: INotifyPropertyChanged
+namespace App.Clinic.ViewModels
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+    public class PhysicianManagementViewModel: INotifyPropertyChanged
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-    public Physician? SelectedPhysician { get; set; }
-    public ObservableCollection<Physician> Physicians
-    {
-        get
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            return new ObservableCollection<Physician>(PhysicianServiceProxy.Current.Physicians);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public PhysicianViewModel? SelectedPhysician { get; set; }
+        public string? Query {get; set; }
+        public ObservableCollection<PhysicianViewModel> Physicians
+        {
+            get
+            {
+                return new ObservableCollection<PhysicianViewModel>(
+                    PhysicianServiceProxy
+                    .Current
+                    .Physicians
+                    .Where(p=>p != null)
+                    .Where(p => p.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
+                    .Select(p => new PhysicianViewModel(p))
+                    );
+            }
+        }
+
+        public void Delete()
+        {
+            if(SelectedPhysician == null)
+            {
+                return;
+            }
+            PhysicianServiceProxy.Current.DeletePhysician(SelectedPhysician.Id);
+
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            NotifyPropertyChanged(nameof(Physicians));
         }
     }
-
-    public void Delete()
-    {
-        if(SelectedPhysician == null)
-        {
-            return;
-        }
-        PhysicianServiceProxy.Current.DeletePhysician(SelectedPhysician.Id);
-
-        Refresh();
-    }
-
-    public void Refresh()
-    {
-        NotifyPropertyChanged(nameof(Physician));
-    }
-
 }

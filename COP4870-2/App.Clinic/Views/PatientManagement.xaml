@@ -3,11 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PatientManagement"
              Title="PatientManagement"
-             NavigatedTo="PatientManagement_NavigatedTo">
+             NavigatedTo="PatientManagement_NavigatedTo"
+             >
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Text="{Binding Query}"/>
+            <Button Grid.Column="1" Text="Search"/>
+        </Grid>
         <ListView
-            ItemsSource ="{Binding Patients}"
-            SelectedItem="{Binding SelectedPatient}"      
+            ItemsSource="{Binding Patients}"
+            SelectedItem="{Binding SelectedPatient}"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -19,19 +28,18 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label FontFamily="Bold" Grid.Column="0" Text="{Binding Id}"/>
+                            <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
                             <Label Grid.Column="1" Text="{Binding Name}"/>
-                            <Label Grid.Column="2" Text="Edit"/>
-                            <Label Grid.Column="3" Text="Delete"/>
+                            <Button Grid.Column="2" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"/>
+                            <Button Grid.Column="3" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
-                        <Label Text="{Binding Name}"></Label>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            </ListView>
-        <Button Text ="Add" Clicked ="AddClicked"/> 
-        <Button Text ="Edit" Clicked ="EditClicked"/>   
-        <Button Text ="Delete" Clicked ="DeleteClicked"/>  
-        <Button Text ="Cancel" Clicked ="CancelClicked"/>
+        </ListView>
+        <Button Text="Add" Clicked="AddClicked"/>
+        <Button Text="Edit" Clicked="EditClicked"/>
+        <Button Text="Delete" Clicked="DeleteClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked" />
     </VerticalStackLayout>
 </ContentPage>

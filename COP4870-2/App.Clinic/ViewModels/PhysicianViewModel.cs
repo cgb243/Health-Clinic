@@ -9,9 +9,9 @@ using System.Windows.Input;
 
 namespace App.Clinic.ViewModels
 {
-    public class PatientViewModel
+    public class PhysicianViewModel
     {
-        public Patient? Model { get; set; }
+        public Physician? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
         public ICommand? EditCommand { get; set; }
         public int Id
@@ -49,35 +49,35 @@ namespace App.Clinic.ViewModels
         public void SetupCommands()
         {
             DeleteCommand = new Command(DoDelete);
-            EditCommand = new Command((p) => DoEdit(p as PatientViewModel));
+            EditCommand = new Command((p) => DoEdit(p as PhysicianViewModel));
         }
 
         private void DoDelete()
         {
             if (Id > 0)
             {
-                PatientServiceProxy.Current.DeletePatient(Id);
-                Shell.Current.GoToAsync("//Patients");
+                PhysicianServiceProxy.Current.DeletePhysician(Id);
+                Shell.Current.GoToAsync("//Physicians");
             }
         }
 
-        private void DoEdit(PatientViewModel? pvm)
+        private void DoEdit(PhysicianViewModel? pvm)
         {
             if (pvm == null)
             {
                 return;
             }
-            var selectedPatientId = pvm?.Id ?? 0;
-            Shell.Current.GoToAsync($"//PatientDetails?patientId={selectedPatientId}");
+            var selectedPhysicianId = pvm?.Id ?? 0;
+            Shell.Current.GoToAsync($"//PhysicianDetails?patientId={selectedPhysicianId}");
         }
 
-        public PatientViewModel()
+        public PhysicianViewModel()
         {
-            Model = new Patient();
+            Model = new Physician();
             SetupCommands();
         }
 
-        public PatientViewModel(Patient? _model)
+        public PhysicianViewModel(Physician? _model)
         {
             Model = _model;
             SetupCommands();
@@ -87,12 +87,12 @@ namespace App.Clinic.ViewModels
         {
             if (Model != null)
             {
-                PatientServiceProxy
+                PhysicianServiceProxy
                 .Current
-                .AddOrUpdatePatient(Model);
+                .AddOrUpdatePhysician(Model);
             }
 
-            Shell.Current.GoToAsync("//Patients");
+            Shell.Current.GoToAsync("//Physicians");
         }
     }
 }

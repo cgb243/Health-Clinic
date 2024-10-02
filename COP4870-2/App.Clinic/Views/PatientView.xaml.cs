@@ -1,6 +1,7 @@
+
+using App.Clinic.ViewModels;
 using Library.Clinic.Models;
 using Library.Clinic.Services;
-using App.Clinic.ViewModels;
 
 
 namespace App.Clinic.Views;
@@ -22,7 +23,7 @@ public partial class PatientView : ContentPage
 
     private void AddClicked(object sender, EventArgs e)
     {
-       (BindingContext as PatientViewModel)?.ExecuteAdd();
+        (BindingContext as PatientViewModel)?.ExecuteAdd();
     }
 
     private void PatientView_NavigatedTo(object sender, NavigatedToEventArgs e)
@@ -35,11 +36,11 @@ public partial class PatientView : ContentPage
             if(model != null)
             {
                 BindingContext = new PatientViewModel(model);
-            }
-            else
+            } else
             {
                 BindingContext = new PatientViewModel();
             }
+            
         } else
         {
             BindingContext = new PatientViewModel();
