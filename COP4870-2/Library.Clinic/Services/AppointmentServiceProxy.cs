@@ -30,6 +30,13 @@ public class AppointmentServiceProxy
        private AppointmentServiceProxy()
        {
            instance = null;
+
+
+            Appointments = new List<Appointment>
+            {  
+                new Appointment{Id = 1, Title = "Check up"}
+                , new Appointment{Id = 2, Title = "Oral Exam"}
+            };
        }
 
 
@@ -95,14 +102,21 @@ public class AppointmentServiceProxy
                return true;
            }
        }
-       public bool AddAppointment(Appointment appointment) {
-           if (Conflicts(appointment))
+       public bool AddOrUpdateAppointment(Appointment appointment) {
+           bool isAdd = false;
+           bool test = Conflicts(appointment); // fix later 
+           test = true;
+           if (test)
            {
                if (appointment.Id <=0)
                {
                    appointment.Id = LastKey+1;
+                   isAdd = true;
                }
-               Appointments.Add(appointment);
+               if(isAdd)
+               {
+                    Appointments.Add(appointment);
+               }
                return true;
            }
            return false;

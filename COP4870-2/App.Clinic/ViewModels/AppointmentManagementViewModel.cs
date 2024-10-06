@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace App.Clinic.ViewModels
 {
-    public class PhysicianManagementViewModel: INotifyPropertyChanged
+    public class AppointmentManagementViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -20,38 +20,38 @@ namespace App.Clinic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public PhysicianViewModel? SelectedPhysician { get; set; }
+        public AppointmentViewModel? SelectedAppointment { get; set; }
         public string? Query {get; set; }
-        public ObservableCollection<PhysicianViewModel> Physicians
+        public ObservableCollection<AppointmentViewModel> Appointments
         {
             get
             {
-                return new ObservableCollection<PhysicianViewModel>(
-                    PhysicianServiceProxy
+                return new ObservableCollection<AppointmentViewModel>(
+                    AppointmentServiceProxy
                     .Current
-                    .Physicians
+                    .Appointments
                     .Where(p=>p != null)
-                    .Where(p => p.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
+                    .Where(p => p.Title.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
                     .Take(100)
-                    .Select(p => new PhysicianViewModel(p))
+                    .Select(p => new AppointmentViewModel(p))
                     );
             }
         }
 
         public void Delete()
         {
-            if(SelectedPhysician == null)
+            if(SelectedAppointment == null)
             {
                 return;
             }
-            PhysicianServiceProxy.Current.DeletePhysician(SelectedPhysician.Id);
+            AppointmentServiceProxy.Current.DeleteAppointment(SelectedAppointment.Id);
 
             Refresh();
         }
 
         public void Refresh()
         {
-            NotifyPropertyChanged(nameof(Physicians));
+            NotifyPropertyChanged(nameof(Appointments));
         }
     }
 }
