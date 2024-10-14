@@ -14,6 +14,20 @@
             <Entry Grid.Column="0" Text="{Binding Query}"/>
             <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked"/>
         </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label FontAttributes="Bold" Grid.Column="0" Text="Appointment Titles"/>
+            <Label FontAttributes="Bold" Grid.Column="1" Text="Patient"/>
+            <Label FontAttributes="Bold" Grid.Column="2" Text="Physician"/>
+            <Label FontAttributes="Bold" Grid.Column="3" Text="Start Time"/>
+            <Label FontAttributes="Bold" Grid.Column="4" Text="End Time"/>
+        </Grid>
         <ListView
             ItemsSource="{Binding Appointments}"
             SelectedItem="{Binding SelectedAppointment}"
@@ -24,14 +38,18 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
                             <Label Grid.Column="1" Text="{Binding Name}"/>
-                            <Button Grid.Column="2" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"/>
-                            <Button Grid.Column="3" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
+                            <Label Grid.Column="2" Text="{Binding PatientName}"/>
+                            <Label Grid.Column="3" Text="{Binding PhysicianName}"/>
+                            <Button Grid.Column="4" Text="Edit" Command="{Binding EditCommand}" />
+                            <Button Grid.Column="5" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

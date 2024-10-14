@@ -2,6 +2,7 @@ using Library.Clinic.Models;
 using Library.Clinic.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,95 @@ namespace App.Clinic.ViewModels
             }
         }
 
+
+        public string PatientName
+        {
+            get
+            {
+                if(Model != null && Model.PatientId > 0)
+                {
+                    if(Model.patient == null)
+                    {
+                        Model.patient = PatientServiceProxy
+                        .Current
+                        .Patients
+                        .FirstOrDefault(p => p.Id == Model.PatientId);
+                    }
+                }
+                return Model?.patient?.Name ?? string.Empty;
+
+
+            }
+        }
+
+        public string PhysicianName
+        {
+            get
+            {
+                if(Model != null && Model.PhysicianId > 0)
+                {
+                    if(Model.physician == null)
+                    {
+                        Model.physician = PhysicianServiceProxy
+                        .Current
+                        .Physicians
+                        .FirstOrDefault(p => p.Id == Model.PhysicianId);
+                    }
+                }
+                return Model?.physician?.Name ?? string.Empty;
+
+
+            }
+        }
+
+
+
+        public Patient? SelectedPatient {
+            get
+            {
+                return Model?.patient;
+            }
+            set{
+                var selectedPatient = value;
+                if(Model!=null)
+                {
+                    Model.patient = selectedPatient;
+                    Model.PatientId = selectedPatient?.Id ?? 0;
+                }
+
+            }
+        }
+
+        public Physician? SelectedPhysician {
+            get
+            {
+                return Model?.physician;
+            }
+            set{
+                var selectedPhysician = value;
+                if(Model!=null)
+                {
+                    Model.physician = selectedPhysician;
+                    Model.PhysicianId = selectedPhysician?.Id ?? 0;
+                }
+
+            }
+        }
+
+
+
+        public ObservableCollection<Patient> Patients {
+            get{
+                return new ObservableCollection<Patient>(PatientServiceProxy.Current.Patients);
+            }
+        }
+
+        public ObservableCollection<Physician> Physicians {
+            get{
+                return new ObservableCollection<Physician>(PhysicianServiceProxy.Current.Physicians);
+            }
+        }
+
         public void SetupCommands()
         {
             DeleteCommand = new Command(DoDelete);
@@ -87,6 +177,7 @@ namespace App.Clinic.ViewModels
         {
             if (Model != null)
             {
+            
                 AppointmentServiceProxy
                 .Current
                 .AddOrUpdateAppointment(Model);

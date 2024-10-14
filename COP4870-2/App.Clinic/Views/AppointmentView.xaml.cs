@@ -12,6 +12,7 @@ public partial class AppointmentView : ContentPage
 	public AppointmentView()
 	{
 		InitializeComponent();
+        BindingContext = new AppointmentViewModel();
 		
 	}
     public int AppointmentId { get; set; }

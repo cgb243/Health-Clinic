@@ -22,20 +22,16 @@ namespace App.Clinic.ViewModels
 
         public AppointmentViewModel? SelectedAppointment { get; set; }
         public string? Query {get; set; }
+
+        private AppointmentServiceProxy _appSvc = AppointmentServiceProxy.Current;
         public ObservableCollection<AppointmentViewModel> Appointments
         {
             get
             {
                 return new ObservableCollection<AppointmentViewModel>(
-                    AppointmentServiceProxy
-                    .Current
-                    .Appointments
-                    .Where(p=>p != null)
-                    .Where(p => p.Title.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
-                    .Take(100)
-                    .Select(p => new AppointmentViewModel(p))
-                    );
+                    _appSvc.Appointments.Select(a => new AppointmentViewModel(a)));
             }
+                
         }
 
         public void Delete()

@@ -14,6 +14,30 @@
             <Label Grid.Column="0" Text="Title:"/>
             <Entry Grid.Column="1" Text="{Binding Name}"/>
         </Grid>
+         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Description:"/>
+            <Entry Grid.Column="1" Text="{Binding Description}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Patient:"/>
+            <Picker Grid.Column="1" ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Physician:"/>
+            <Picker Grid.Column="1" ItemsSource="{Binding Physicians}" SelectedItem="{Binding SelectedPhysician}"/>
+        </Grid>
         <Button
             Text="Ok"
             Clicked="AddClicked"
