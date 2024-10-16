@@ -21,13 +21,22 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label FontAttributes="Bold" Grid.Column="0" Text="Appointment Titles"/>
-            <Label FontAttributes="Bold" Grid.Column="1" Text="Patient"/>
-            <Label FontAttributes="Bold" Grid.Column="2" Text="Physician"/>
-            <Label FontAttributes="Bold" Grid.Column="3" Text="Start Time"/>
-            <Label FontAttributes="Bold" Grid.Column="4" Text="End Time"/>
+            <Label FontAttributes="Bold" Grid.Column="0" Text="Id"/>
+            <Label FontAttributes="Bold" Grid.Column="1" Text="Appointment Title"/>
+            <Label FontAttributes="Bold" Grid.Column="2" Text="Patient Name"/>
+            <Label FontAttributes="Bold" Grid.Column="3" Text="Physician Name"/>
+            <Label FontAttributes="Bold" Grid.Column="4" Text="Start Date"/>
+            <Label FontAttributes="Bold" Grid.Column="5" Text="Start Time"/>
+            <Label FontAttributes="Bold" Grid.Column="6" Text="Duration"/>
+            <Label FontAttributes="Bold" Grid.Column="7" Text="Edit"/>
+            <Label FontAttributes="Bold" Grid.Column="8" Text="Delete"/>
         </Grid>
+
         <ListView
             ItemsSource="{Binding Appointments}"
             SelectedItem="{Binding SelectedAppointment}"
@@ -40,6 +49,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -48,8 +60,11 @@
                             <Label Grid.Column="1" Text="{Binding Name}"/>
                             <Label Grid.Column="2" Text="{Binding PatientName}"/>
                             <Label Grid.Column="3" Text="{Binding PhysicianName}"/>
-                            <Button Grid.Column="4" Text="Edit" Command="{Binding EditCommand}" />
-                            <Button Grid.Column="5" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
+                            <Label Grid.Column="4" Text="{Binding StartDateDisplay}"/>
+                            <Label Grid.Column="5" Text="{Binding StartTimeDisplay}"/>
+                            <Label Grid.Column="6" Text="{Binding DurationDisplay}"/>
+                            <Button Grid.Column="7" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"  />
+                            <Button Grid.Column="8" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

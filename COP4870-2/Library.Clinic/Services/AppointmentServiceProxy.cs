@@ -32,11 +32,28 @@ public class AppointmentServiceProxy
            instance = null;
 
 
-            Appointments = new List<Appointment>
-            {  
-                new Appointment{Id = 1, Title = "Check up"}
-                , new Appointment{Id = 2, Title = "Oral Exam"}
-            };
+        Appointments = new List<Appointment>
+        {
+            new Appointment
+            {
+                Id = 1,
+                Title = "Check up",
+                StartTime = new DateTime(2024, 10, 9, 9, 0, 0), 
+                EndTime = new DateTime(2024, 10, 9, 9, 30, 0),  
+                PatientId = 1,
+                PhysicianId = 1
+            },
+            new Appointment
+            {
+                Id = 2,
+                Title = "Oral Exam",
+                StartTime = new DateTime(2024, 10, 9, 10, 0, 0), 
+                EndTime = new DateTime(2024, 10, 9, 10, 30, 0),  
+                PatientId = 2,
+                PhysicianId = 2
+            }
+        };
+
        }
 
 
@@ -58,69 +75,88 @@ public class AppointmentServiceProxy
        }
 
 
-       public bool Conflicts (Appointment other) {
+    public bool Conflicts(Appointment other)
+    {
+        if (!IsWithinBusinessHours(other.StartTime, other.EndTime))
+        {
+            return true; 
+        }
+
+        var relevantAppointments = Appointments
+            .Where(appointment => appointment.Id != other.Id && 
+                                (appointment.PatientId == other.PatientId || appointment.PhysicianId == other.PhysicianId));
+
+        foreach (var appointment in relevantAppointments)
+        {
+            if (appointment.StartTime < other.EndTime && appointment.EndTime > other.StartTime)
+            {
+                return true; 
+            }
+        }
+        return false; 
+    }
 
 
-           DateTime now = DateTime.Now;
+    private bool IsWithinBusinessHours(DateTime? startTime, DateTime? endTime)
+    {
+        if (startTime < DateTime.Now)
+        {
+            return false;
+        }
+        if (startTime?.DayOfWeek == DayOfWeek.Saturday || startTime?.DayOfWeek == DayOfWeek.Sunday)
+        {
+            return false;
+        }
+        if (startTime?.TimeOfDay < TimeSpan.FromHours(8) || endTime?.TimeOfDay > TimeSpan.FromHours(17))
+        {
+            return false;
+        }
 
+        return true;
+    }
 
-           var relevantAppointments = AppointmentServiceProxy.Current.Appointments
-           .Where(appointment => appointment.patient == other.patient || appointment.physician == other.physician);
+    public async Task<bool> AddOrUpdateAppointment(Appointment appointment)
+    {
+        if (appointment == null)
+            return false;
 
+        bool hasConflict = await Task.Run(() => Conflicts(appointment));
 
-           if (!IsWithinBusinessHours(other.StartTime, other.EndTime))
-           {
-               return false;
-           }
-
-
-           foreach (var appointment in relevantAppointments)
-           {
-               if (appointment.StartTime < other.EndTime && appointment.EndTime > other.StartTime)
-               {
-                   return false;
-               }
-           }
-           return true;
-          
-           bool IsWithinBusinessHours(DateTime startTime, DateTime endTime)
-           {
-               if (startTime < now)
-               {
-                   return false;
-               }
-               if (startTime.DayOfWeek == DayOfWeek.Saturday || startTime.DayOfWeek == DayOfWeek.Sunday)
-               {
-                   return false;
-               }
-               if (startTime.TimeOfDay < TimeSpan.FromHours(8) || endTime.TimeOfDay > TimeSpan.FromHours(17))
-               {
-                   return false;
-               }
-
-
-               return true;
-           }
-       }
-       public bool AddOrUpdateAppointment(Appointment appointment) {
-           bool isAdd = false;
-           bool test = Conflicts(appointment); // fix later 
-           test = true;
-           if (test)
-           {
-               if (appointment.Id <=0)
-               {
-                   appointment.Id = LastKey+1;
-                   isAdd = true;
-               }
-               if(isAdd)
-               {
+        if (hasConflict)
+        {
+            return false;
+        }
+        else
+        {
+            if (appointment.Id > 0)
+            {
+                var existingAppointment = Appointments.FirstOrDefault(a => a.Id == appointment.Id);
+                if (existingAppointment != null)
+                {
+                    existingAppointment.Title = appointment.Title;
+                    existingAppointment.StartTime = appointment.StartTime;
+                    existingAppointment.EndTime = appointment.EndTime;
+                    existingAppointment.PatientId = appointment.PatientId;
+                    existingAppointment.PhysicianId = appointment.PhysicianId;
+                    existingAppointment.patient = appointment.patient;
+                    existingAppointment.physician = appointment.physician;
+                }
+                else
+                {
+                    appointment.Id = LastKey + 1;
                     Appointments.Add(appointment);
-               }
-               return true;
-           }
-           return false;
-       }
+                }
+            }
+            else
+            {
+                appointment.Id = LastKey + 1;
+                Appointments.Add(appointment);
+            }
+
+            return true;
+        }
+    }
+
 
 
        public void DeleteAppointment(int id) {

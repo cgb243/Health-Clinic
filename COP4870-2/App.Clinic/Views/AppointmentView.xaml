@@ -14,14 +14,6 @@
             <Label Grid.Column="0" Text="Title:"/>
             <Entry Grid.Column="1" Text="{Binding Name}"/>
         </Grid>
-         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Description:"/>
-            <Entry Grid.Column="1" Text="{Binding Description}"/>
-        </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -37,6 +29,22 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="Physician:"/>
             <Picker Grid.Column="1" ItemsSource="{Binding Physicians}" SelectedItem="{Binding SelectedPhysician}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Date:"/>
+            <DatePicker Grid.Column="1" Date="{Binding StartDate}" MinimumDate="{Binding MinStartDate}"/>
+            <Label Grid.Column="2" Text="Time:"/>
+            <Picker Grid.Column="3" ItemsSource="{Binding StartTimes}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedStartTime}"/>
+            <Label Grid.Column="4" Text="Appointment Length:"/>
+            <Picker Grid.Column="5" ItemsSource="{Binding DurationOptions}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedDurationOption}"/>
         </Grid>
         <Button
             Text="Ok"
