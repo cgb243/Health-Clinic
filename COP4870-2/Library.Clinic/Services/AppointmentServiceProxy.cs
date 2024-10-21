@@ -26,7 +26,6 @@ public class AppointmentServiceProxy
        }
        private static AppointmentServiceProxy? instance;
 
-
        private AppointmentServiceProxy()
        {
            instance = null;

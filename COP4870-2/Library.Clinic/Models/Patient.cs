@@ -34,6 +34,7 @@ namespace Library.Clinic.Models
        public string SSN { get; set; }
        public string Diagnoses {get; set;}
        public string Prescriptions {get; set;}
+       public Insurance InsurancePlan{get; set;}
 
 
        public Patient()

@@ -17,6 +17,10 @@ namespace Library.Clinic.Models
        public Patient? patient { get; set;}
        public Physician? physician {get; set;}
 
+        public List<Treatment> Treatments { get; set; }
+        public Insurance InsurancePlan => patient?.InsurancePlan; // set up alt
+        public decimal totalUninsuredPrice {get; set;}
+        public decimal totalInsuredPrice {get; set;}
 
        public Appointment ()
        {
@@ -27,7 +31,21 @@ namespace Library.Clinic.Models
             EndTime = DateTime.MinValue;
             patient = new Patient();
             physician = new Physician();
+            CalculateTreatments();
        }
+
+        private void CalculateTreatments()
+        {
+            
+            foreach (var treatment in Treatments)
+            {
+                decimal uninsuredPrice = treatment.uninsuredPrice;
+                decimal insuredPrice = InsurancePlan.GetInsuredPrice(treatment);
+
+                totalUninsuredPrice += uninsuredPrice;
+                totalInsuredPrice += insuredPrice;
+            }
+        }
      
 
 
