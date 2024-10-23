@@ -47,8 +47,43 @@ public class InsuranceServiceProxy
 
         Insurances = new List<Insurance>
         {
-            new Insurance{Title="Basic Insurance", insuranceId = 1}
+            new Insurance
+            {
+                Title = "Basic Health Plan",
+                insuranceId = 1,
+                CoveragePercentage = 0.8m 
+            },
+            new Insurance
+            {
+                Title = "Premium Health Plan",
+                insuranceId = 2,
+                CoveragePercentage = 0.9m 
+            },
+            new Insurance
+            {
+                Title = "Standard Health Plan",
+                insuranceId = 3,
+                CoveragePercentage = 0.75m 
+            },
+            new Insurance
+            {
+                Title = "Family Health Plan",
+                insuranceId = 4,
+                CoveragePercentage = 0.85m 
+            },
+            new Insurance
+            {
+                Title = "Senior Health Plan",
+                insuranceId = 5,
+                CoveragePercentage = 0.8m
+            }
+
         };
 
+    }
+
+    public Insurance? GetInsuranceById(int InsuranceId)
+    {
+        return Insurances.FirstOrDefault(i => i.insuranceId == InsuranceId);
     }
 }

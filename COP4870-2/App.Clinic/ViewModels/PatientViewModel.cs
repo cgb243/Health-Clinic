@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+
 
 namespace App.Clinic.ViewModels
 {
@@ -44,6 +46,27 @@ namespace App.Clinic.ViewModels
                     Model.Name = value;
                 }
             }
+        }
+
+        public ObservableCollection<Insurance> Insurances => new ObservableCollection<Insurance>(InsuranceServiceProxy.Current.Insurances);
+
+
+        public Insurance? SelectedInsurance
+        {
+            get => Model?.InsurancePlan;
+            set
+            {
+                if (Model != null)
+                {
+                    Model.InsurancePlan = value;
+                    Model.InsurancePlan.insuranceId = value?.insuranceId ?? 0;
+                }
+            }
+        }
+
+        public string InsurancePlan
+        {
+            get => Model?.InsurancePlan?.Title ?? string.Empty;
         }
 
         public void SetupCommands()

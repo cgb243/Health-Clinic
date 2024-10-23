@@ -28,31 +28,71 @@ public class AppointmentServiceProxy
 
        private AppointmentServiceProxy()
        {
-           instance = null;
+           //instance = null;
+
+            var patients = PatientServiceProxy.Current.Patients;
+            var physicians = PhysicianServiceProxy.Current.Physicians;
+            var treatments = TreatmentServiceProxy.Current.Treatments;
+            Appointments = new List<Appointment>
+            {
+                new Appointment
+                {
+                    Id = 1,
+                    Title = "Check up",
+                    StartTime = new DateTime(2024, 10, 9, 9, 0, 0), 
+                    EndTime = new DateTime(2024, 10, 9, 9, 30, 0),  
+                    patient = patients.FirstOrDefault(p => p.Id == 1),
+                    physician = physicians.FirstOrDefault(p => p.Id == 1),
+                    Treatments = new List<Treatment>()
+                 
+                    
+                },
+                new Appointment
+                {
+                    Id = 2,
+                    Title = "Oral Exam",
+                    StartTime = new DateTime(2024, 10, 9, 10, 0, 0), 
+                    EndTime = new DateTime(2024, 10, 9, 10, 30, 0),  
+                    patient = patients.FirstOrDefault(p => p.Id == 2),
+                    physician = physicians.FirstOrDefault(p => p.Id == 2),
+                    Treatments = new List<Treatment>()
+                    
+                }
 
 
-        Appointments = new List<Appointment>
-        {
-            new Appointment
+            };
+        
+            var treatmentForCheckUp = treatments.FirstOrDefault(t => t.Id == 1); 
+            var treatmentForOralExam1 = treatments.FirstOrDefault(t => t.Id == 2); 
+            var treatmentForOralExam2 = treatments.FirstOrDefault(t => t.Id == 3); 
+            var treatmentForOralExam3 = treatments.FirstOrDefault(t => t.Id == 6); 
+
+
+            foreach (var appointment in Appointments)
             {
-                Id = 1,
-                Title = "Check up",
-                StartTime = new DateTime(2024, 10, 9, 9, 0, 0), 
-                EndTime = new DateTime(2024, 10, 9, 9, 30, 0),  
-                PatientId = 1,
-                PhysicianId = 1
-            },
-            new Appointment
-            {
-                Id = 2,
-                Title = "Oral Exam",
-                StartTime = new DateTime(2024, 10, 9, 10, 0, 0), 
-                EndTime = new DateTime(2024, 10, 9, 10, 30, 0),  
-                PatientId = 2,
-                PhysicianId = 2
+                appointment.CalculateTreatments();
             }
-        };
 
+            if (treatmentForCheckUp != null)
+            {
+                Appointments[0].Treatments.Add(treatmentForCheckUp);
+            }
+
+            if (treatmentForOralExam1 != null)
+            {
+                Appointments[1].Treatments.Add(treatmentForOralExam1);
+            }
+           
+
+            if (treatmentForOralExam2 != null)
+            {
+                Appointments[1].Treatments.Add(treatmentForOralExam2); 
+            }
+            if (treatmentForOralExam3 != null)
+            {
+                Appointments[1].Treatments.Add(treatmentForOralExam3); 
+            }
+       
        }
 
 

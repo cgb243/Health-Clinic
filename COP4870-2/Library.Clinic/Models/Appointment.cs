@@ -18,9 +18,29 @@ namespace Library.Clinic.Models
        public Physician? physician {get; set;}
 
         public List<Treatment> Treatments { get; set; }
-        public Insurance InsurancePlan => patient?.InsurancePlan; // set up alt
-        public decimal totalUninsuredPrice {get; set;}
-        public decimal totalInsuredPrice {get; set;}
+        public Insurance InsurancePlan => patient?.InsurancePlan; // set up
+        
+        public decimal TotalUninsuredPrice
+        {
+            get
+            {
+                if (Treatments == null || !Treatments.Any())
+                    return 0m;
+
+                return Treatments.Sum(t => t.uninsuredPrice);
+            }
+        }
+
+        public decimal TotalInsuredPrice
+        {
+            get
+            {
+                if (Treatments == null || !Treatments.Any())
+                    return 0m;
+
+                return Treatments.Sum(t => InsurancePlan != null ? InsurancePlan.GetInsuredPrice(t) : t.uninsuredPrice);
+            }
+        }
 
        public Appointment ()
        {
@@ -34,17 +54,22 @@ namespace Library.Clinic.Models
             CalculateTreatments();
        }
 
-        private void CalculateTreatments()
+        public void CalculateTreatments()
         {
-            
-            foreach (var treatment in Treatments)
-            {
-                decimal uninsuredPrice = treatment.uninsuredPrice;
-                decimal insuredPrice = InsurancePlan.GetInsuredPrice(treatment);
 
-                totalUninsuredPrice += uninsuredPrice;
-                totalInsuredPrice += insuredPrice;
+            if (Treatments == null)
+            {
+                Treatments = new List<Treatment>();
             }
+            
+            // foreach (var treatment in Treatments)
+            // {
+            //     decimal uninsuredPrice = treatment.uninsuredPrice;
+            //     decimal insuredPrice = InsurancePlan.GetInsuredPrice(treatment);
+
+            //     totalUninsuredPrice += uninsuredPrice;
+            //     totalInsuredPrice += insuredPrice;
+            // }
         }
      
 

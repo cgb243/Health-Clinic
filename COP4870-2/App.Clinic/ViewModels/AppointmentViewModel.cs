@@ -81,6 +81,42 @@ namespace App.Clinic.ViewModels
             }
         }
 
+        // public ObservableCollection<Treatment> Treatments => new ObservableCollection<Treatment>(TreatmentServiceProxy.Current.Treatments);
+       
+        // public List<string> TreatmentTitles
+        // {
+        //     get
+        //     {
+        //         for (Treatment in Model?.Title )
+        //         Model?.Treatments?.Title ?? string.Empty;
+        //     }
+            
+        // }
+        public string AppointmentCostDisplay
+        {
+            get
+            {
+                // Assuming you want to display the insured price
+                return Model != null ? $"${Model.TotalInsuredPrice:F2}" : "$0.00";
+            }
+        }
+        public string TreatmentTitlesDisplay
+        {
+            get
+            {
+                return Model?.Treatments != null
+                    ? string.Join(", ", Model.Treatments.Select(t => t.Title))
+                    : string.Empty;
+            }
+        }
+        public ObservableCollection<Insurance> Insurances => new ObservableCollection<Insurance>(InsuranceServiceProxy.Current.Insurances);
+
+
+        public string InsurancePlan
+        {
+            get => Model?.InsurancePlan?.Title ?? string.Empty;
+        }
+
         public string StartDateDisplay => Model?.StartTime?.ToString("d") ?? string.Empty;
         public string StartTimeDisplay => Model?.StartTime?.ToString("t") ?? string.Empty;
 

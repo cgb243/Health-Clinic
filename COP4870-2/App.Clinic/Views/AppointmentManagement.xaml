@@ -22,7 +22,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -33,14 +37,18 @@
             <Label FontAttributes="Bold" Grid.Column="4" Text="Start Date"/>
             <Label FontAttributes="Bold" Grid.Column="5" Text="Start Time"/>
             <Label FontAttributes="Bold" Grid.Column="6" Text="Duration"/>
-            <Label FontAttributes="Bold" Grid.Column="7" Text="Edit"/>
-            <Label FontAttributes="Bold" Grid.Column="8" Text="Delete"/>
+            <Label FontAttributes="Bold" Grid.Column="7" Text="Health Insurance"/>
+            <Label FontAttributes="Bold" Grid.Column="8" Text="Treatments"/>
+            <Label FontAttributes="Bold" Grid.Column="9" Text="Visit Cost"/>
+            <Label FontAttributes="Bold" Grid.Column="10" Text="Insurance Details"/>
+            <Label FontAttributes="Bold" Grid.Column="11" Text="Edit"/>
+            <Label FontAttributes="Bold" Grid.Column="12" Text="Delete"/>
         </Grid>
 
         <ListView
             ItemsSource="{Binding Appointments}"
             SelectedItem="{Binding SelectedAppointment}"
-            >
+            RowHeight="-1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -52,7 +60,11 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
@@ -63,8 +75,12 @@
                             <Label Grid.Column="4" Text="{Binding StartDateDisplay}"/>
                             <Label Grid.Column="5" Text="{Binding StartTimeDisplay}"/>
                             <Label Grid.Column="6" Text="{Binding DurationDisplay}"/>
-                            <Button Grid.Column="7" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"  />
-                            <Button Grid.Column="8" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
+                            <Label Grid.Column="7" Text="{Binding InsurancePlan}"/>
+                            <Label Grid.Column="8" Text="{Binding TreatmentTitlesDisplay}" LineBreakMode="WordWrap" VerticalOptions="Start" MaxLines="5"/>
+                            <Label Grid.Column="9" Text="{Binding AppointmentCostDisplay}"/>
+                            <Button Grid.Column="10" Text="Details" Command="{Binding InsuranceDetails}" CommandParameter="{Binding}" />
+                            <Button Grid.Column="11" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"  />
+                            <Button Grid.Column="12" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

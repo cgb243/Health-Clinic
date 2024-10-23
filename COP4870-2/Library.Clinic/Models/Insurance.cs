@@ -10,6 +10,19 @@ public class InsuranceTreatmentPrice
 }
 public class Insurance
 {
+
+    public override string ToString()
+    {
+        return Display;
+    }
+
+    public string Display
+    {
+        get
+        {
+            return $"[{insuranceId}] {Title}";
+        }
+    }
     public string Title {get; set;}
 
     public int insuranceId {get; set;}
