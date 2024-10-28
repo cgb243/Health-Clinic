@@ -1,5 +1,6 @@
 using System;
 using API.Health.Clinic.Controllers;
+using Library.Clinic.DTO;
 using Library.Clinic.Models;
 
 
@@ -34,7 +35,7 @@ static public class FakeDatabase
         
     }
 
-    public static Patient? AddOrUpdatePatient(Patient? patient)
+    public static PatientDTO? AddOrUpdatePatient(Patient? patient)
     {
         if(patient == null) 
         {
@@ -50,6 +51,6 @@ static public class FakeDatabase
         {
             Patients.Add(patient);
         }
-        return patient;
+        return new PatientDTO(patient);
     } 
 }

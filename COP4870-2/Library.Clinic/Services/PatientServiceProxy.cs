@@ -1,3 +1,4 @@
+using Library.Clinic.DTO;
 using Library.Clinic.Models;
 using Newtonsoft.Json;
 using PP.Library.Utilities;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -39,7 +41,7 @@ namespace Library.Clinic.Services
 
             //var patientsData = new WebRequestHandler().Get("/Patient").Result;
 
-            //Patients = JsonConvert.DeserializeObject<List<Patient>>(patientsData) ?? new List<Patient>();
+            //Patients = JsonConvert.DeserializeObject<List<PatientDTO>>(patientsData) ?? new List<PatientDTO>();
             //Uncomment when I work on API Service
 
             var insuranceService = InsuranceServiceProxy.Current;
@@ -129,7 +131,7 @@ namespace Library.Clinic.Services
             }
         }
 
-        public void AddOrUpdatePatient(Patient patient)
+        public /*async  Task<Patient?>*/void AddOrUpdatePatient(Patient patient)
         {
             bool isAdd = false;
             if (patient.Id <= 0)
@@ -141,15 +143,36 @@ namespace Library.Clinic.Services
             {
                 Patients.Add(patient);
             }
+            // var payload = await new WebRequestHandler().Post("/patient", patient);
+            // var newPatient = JsonConvert.DeserializeObject<PatientDTO>(payload);
+            // if(newPatient != null && newPatient.Id > 0 && patient.Id == 0)
+            // {
+            //     //new patient to be added to the list
+            //     Patients.Add(newPatient);
+            // } else if(newPatient != null && patient != null && patient.Id > 0 && patient.Id == newPatient.Id)
+            // {
+            //     //edit, exchange the object in the list
+            //     var currentPatient = Patients.FirstOrDefault(p => p.Id == newPatient.Id);
+            //     var index = Patients.Count;
+            //     if (currentPatient != null)
+            //     {
+            //         index = Patients.IndexOf(currentPatient);
+            //         Patients.RemoveAt(index);
+            //     }
+            //     Patients.Insert(index, newPatient);
+            // }
         }
 
-        public void DeletePatient(int id) {
+        public /*async*/ void DeletePatient(int id) {
             var patientToRemove = Patients.FirstOrDefault(p => p.Id == id);
 
             if (patientToRemove != null)
             {
                 Patients.Remove(patientToRemove);
+                // await new WebRequestHandler().Delete($"/Patient/{id}");
             }
         }
+
+        
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
+using Library.Clinic.DTO;
 
 
 namespace Library.Clinic.Models
@@ -46,5 +47,17 @@ namespace Library.Clinic.Models
            Diagnoses = string.Empty;
            Prescriptions = string.Empty;
        } 
+
+       public Patient(PatientDTO p)
+       {
+            Id = p.Id;
+            Name=p.Name;
+            Birthday=p.Birthday;
+            Address=p.Address;
+            SSN=p.SSN;
+            Diagnoses=p.Diagnoses;
+            Prescriptions=p.Prescriptions;
+            InsurancePlan=p.InsurancePlan;
+       }
     }
 }
