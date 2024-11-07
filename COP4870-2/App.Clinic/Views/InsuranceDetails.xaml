@@ -7,7 +7,6 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
-        <!-- Header Row for Treatments Table -->
         <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -21,7 +20,6 @@
             <Label FontAttributes="Bold" TextColor="White" Grid.Column="3" Text="Insured Price" HorizontalTextAlignment="Center"/>
         </Grid>
 
-        <!-- Treatments List -->
         <ListView ItemsSource="{Binding Treatments}" BackgroundColor="#2a2a3a" SeparatorVisibility="None" RowHeight="-1">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -43,7 +41,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Back Button -->
         <Button Text="Go Back" Clicked="BackClicked" 
                 BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
                 CornerRadius="20" Padding="10,5" HorizontalOptions="Center" WidthRequest="150"/>

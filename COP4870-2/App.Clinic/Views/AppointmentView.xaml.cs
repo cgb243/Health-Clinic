@@ -33,7 +33,7 @@ public partial class AppointmentView : ContentPage
         //TODO: this really needs to be in a view model
         if(AppointmentId > 0)
         {
-            var model = AppointmentServiceProxy.Current //check if this works
+            var model = AppointmentServiceProxy.Current 
                 .Appointments.FirstOrDefault(p => p.Id == AppointmentId);
             if(model != null)
             {

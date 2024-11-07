@@ -18,16 +18,16 @@ namespace App.Clinic.Views
             Shell.Current.GoToAsync("//MainPage");
         }
 
-        private void AddClicked(object sender, EventArgs e)
+        private async void AddClicked(object sender, EventArgs e)
         {
-            Shell.Current.GoToAsync("//TreatmentDetails?treatmentId=0");
+            await Shell.Current.GoToAsync("//TreatmentDetails?treatmentId=0");
         }
 
-        private void EditClicked(object sender, EventArgs e)
+        private async void EditClicked(object sender, EventArgs e)
         {
             var viewModel = BindingContext as TreatmentManagementViewModel;
             var selectedTreatmentId = viewModel?.SelectedTreatment?.Id ?? 0;
-            Shell.Current.GoToAsync($"//TreatmentDetails?treatmentId={selectedTreatmentId}");
+            await Shell.Current.GoToAsync($"//TreatmentDetails?treatmentId={selectedTreatmentId}");
         }
 
         private void DeleteClicked(object sender, EventArgs e)

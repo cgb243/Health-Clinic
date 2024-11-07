@@ -12,14 +12,10 @@ namespace Library.Clinic.ViewModels
         private decimal insuranceCoverage;
         private decimal insuredPrice;
 
-        //public ICommand SaveCommand { get; }
-        //public ICommand CancelCommand { get; }
 
         public TreatmentViewModel()
         {
             treatment = new Treatment();
-            //SaveCommand = new Command(ExecuteSave);
-            //CancelCommand = new Command(ExecuteCancel);
         }
 
         public TreatmentViewModel(Treatment treatment)
@@ -39,22 +35,9 @@ namespace Library.Clinic.ViewModels
                 treatment = TreatmentServiceProxy.Current.Treatments
                     .FirstOrDefault(t => t.Id == treatmentId) ?? new Treatment();
             }
-
-            //SaveCommand = new Command(ExecuteSave);
-            //CancelCommand = new Command(ExecuteCancel);
         }
 
-        // private async void ExecuteSave()
-        // {
-        //     TreatmentServiceProxy.Current.AddOrUpdateTreatment(treatment);
-        //     await Shell.Current.GoToAsync("..");
-        // }
-
-        // private async void ExecuteCancel()
-        // {
-        //     await Shell.Current.GoToAsync("..");
-        // }
-
+  
 
         public TreatmentViewModel(Treatment treatment, Patient patient)
         {
@@ -76,17 +59,32 @@ namespace Library.Clinic.ViewModels
             }
         }
 
-        public string Title
+    public string Title
+    {
+        get => treatment?.Title ?? string.Empty;
+        set
         {
-            get => treatment?.Title ?? string.Empty;
-            // Setter if needed...
+            if (treatment != null && treatment.Title != value)
+            {
+                treatment.Title = value;
+                OnPropertyChanged(nameof(Title));
+            }
         }
+    }
 
-        public decimal UninsuredPrice
+    public decimal UninsuredPrice
+    {
+        get => treatment?.uninsuredPrice ?? 0m;
+        set
         {
-            get => treatment?.uninsuredPrice ?? 0m;
-            // Setter if needed...
+            if (treatment != null && treatment.uninsuredPrice != value)
+            {
+                treatment.uninsuredPrice = value;
+                OnPropertyChanged(nameof(UninsuredPrice));
+            }
         }
+    }
+
 
         public decimal InsuranceCoverage
         {
@@ -119,18 +117,14 @@ namespace Library.Clinic.ViewModels
         {
             if (patient?.InsurancePlan != null)
             {
-                // Assume CoveragePercentage is a decimal value like 0.80 for 80%
                 decimal coveragePercentage = patient.InsurancePlan.CoveragePercentage;
 
-                // Calculate the insurance coverage amount
                 InsuranceCoverage = UninsuredPrice * coveragePercentage;
 
-                // Calculate the insured price
                 InsuredPrice = UninsuredPrice - InsuranceCoverage;
             }
             else
             {
-                // No insurance plan, so coverage is zero
                 InsuranceCoverage = 0m;
                 InsuredPrice = UninsuredPrice;
             }
@@ -145,16 +139,15 @@ namespace Library.Clinic.ViewModels
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public void ExecuteAdd()
+        public async void ExecuteAdd()
         {
             if (treatment != null)
             {
-                TreatmentServiceProxy
-                .Current
-                .AddOrUpdateTreatment(treatment);
+                TreatmentServiceProxy.Current.AddOrUpdateTreatment(treatment);
             }
 
-            Shell.Current.GoToAsync("//Treatments");
+            await Shell.Current.GoToAsync("//Treatments");
         }
+
     }
 }

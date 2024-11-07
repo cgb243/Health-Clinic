@@ -3,17 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PhysicianView"
              Title="Physician View"
-             NavigatedTo="PhysicianView_NavigatedTo"
              BackgroundColor="#1e1e2f">
 
     <StackLayout Padding="20" Spacing="15">
 
-        <!-- Physician Name Label and Entry -->
         <Label Text="Physician Name" FontAttributes="Bold" TextColor="White"/>
         <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Enter Physician name" 
                BackgroundColor="White" TextColor="Black" />
 
-        <!-- Action Buttons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
             <Button Text="OK" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
                     CornerRadius="20" Padding="10,5" WidthRequest="100"/>

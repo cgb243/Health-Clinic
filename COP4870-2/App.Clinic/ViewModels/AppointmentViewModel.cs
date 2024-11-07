@@ -99,7 +99,6 @@ namespace App.Clinic.ViewModels
         {
             get
             {
-                // Assuming you want to display the insured price
                 return Model != null ? $"${Model.TotalInsuredPrice:F2}" : "$0.00";
             }
         }
@@ -299,12 +298,10 @@ namespace App.Clinic.ViewModels
 
         private void LoadAvailableTreatments()
         {
-            // Load all available treatments
             Treatments = new ObservableCollection<TreatmentSelectionViewModel>(
                 TreatmentServiceProxy.Current.Treatments.Select(t => new TreatmentSelectionViewModel(t))
             );
 
-            // If editing an existing appointment, mark the selected treatments
             if (Model.Treatments != null)
             {
                 foreach (var treatment in Treatments)
@@ -395,7 +392,6 @@ namespace App.Clinic.ViewModels
             {
                 RefreshTime();
 
-                // Get selected treatments
                 Model.Treatments = Treatments
                     .Where(t => t.IsSelected)
                     .Select(t => t.Treatment)

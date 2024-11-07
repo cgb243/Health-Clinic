@@ -1,24 +1,52 @@
-
 using App.Clinic.ViewModels;
 using Library.Clinic.Models;
 using Library.Clinic.Services;
 
-
 namespace App.Clinic.Views;
 
-[QueryProperty(nameof(PhysicianId), "patientId")]
+[QueryProperty(nameof(PhysicianId), "physicianId")]
 public partial class PhysicianView : ContentPage
 {
-	public PhysicianView()
-	{
-		InitializeComponent();
-		
-	}
-    public int PhysicianId { get; set; }
-
-    private void CancelClicked(object sender, EventArgs e)
+    private int physicianId;
+    public int PhysicianId
     {
-		Shell.Current.GoToAsync("//Physicians");
+        get => physicianId;
+        set
+        {
+            physicianId = value;
+            LoadPhysician();
+        }
+    }
+
+    public PhysicianView()
+    {
+        InitializeComponent();
+    }
+
+    private void LoadPhysician()
+    {
+        if (PhysicianId > 0)
+        {
+            var model = PhysicianServiceProxy.Current
+                .Physicians.FirstOrDefault(p => p.Id == PhysicianId);
+            if (model != null)
+            {
+                BindingContext = new PhysicianViewModel(model);
+            }
+            else
+            {
+                BindingContext = new PhysicianViewModel();
+            }
+        }
+        else
+        {
+            BindingContext = new PhysicianViewModel();
+        }
+    }
+
+    private async void CancelClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//Physicians");
     }
 
     private void AddClicked(object sender, EventArgs e)
@@ -26,25 +54,4 @@ public partial class PhysicianView : ContentPage
         (BindingContext as PhysicianViewModel)?.ExecuteAdd();
     }
 
-    private void PhysicianView_NavigatedTo(object sender, NavigatedToEventArgs e)
-    {
-        //TODO: this really needs to be in a view model
-        if(PhysicianId > 0)
-        {
-            var model = PhysicianServiceProxy.Current
-                .Physicians.FirstOrDefault(p => p.Id == PhysicianId);
-            if(model != null)
-            {
-                BindingContext = new PhysicianViewModel(model);
-            } else
-            {
-                BindingContext = new PhysicianViewModel();
-            }
-            
-        } else
-        {
-            BindingContext = new PhysicianViewModel();
-        }
-        
-    }
 }

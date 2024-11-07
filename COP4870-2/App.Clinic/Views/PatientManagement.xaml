@@ -8,7 +8,6 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
-        <!-- Search and Sort Section -->
         <Grid Padding="10" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="12*"/>
@@ -25,7 +24,6 @@
                     BackgroundColor="White" TextColor="Black"  />
         </Grid>
 
-        <!-- Header Row for Patient List -->
         <Grid Padding="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -41,7 +39,6 @@
             <Label FontAttributes="Bold" TextColor="White" Grid.Column="4" Text="Delete"/>
         </Grid>
 
-        <!-- Patient List -->
         <ListView ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}"
                   BackgroundColor="#2a2a3a" SeparatorVisibility="None">
             <ListView.ItemTemplate>
@@ -68,7 +65,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Action Buttons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
             <Button Text="Add" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>
             <Button Text="Edit" Clicked="EditClicked" BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>

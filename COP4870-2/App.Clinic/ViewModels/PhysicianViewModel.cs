@@ -61,14 +61,14 @@ namespace App.Clinic.ViewModels
             }
         }
 
-        private void DoEdit(PhysicianViewModel? pvm)
+        private async void DoEdit(PhysicianViewModel? pvm)
         {
             if (pvm == null)
             {
                 return;
             }
             var selectedPhysicianId = pvm?.Id ?? 0;
-            Shell.Current.GoToAsync($"//PhysicianDetails?patientId={selectedPhysicianId}");
+            await Shell.Current.GoToAsync($"//PhysicianDetails?patientId={selectedPhysicianId}");
         }
 
         public PhysicianViewModel()
@@ -83,7 +83,7 @@ namespace App.Clinic.ViewModels
             SetupCommands();
         }
 
-        public void ExecuteAdd()
+        public async void ExecuteAdd()
         {
             if (Model != null)
             {
@@ -92,7 +92,7 @@ namespace App.Clinic.ViewModels
                 .AddOrUpdatePhysician(Model);
             }
 
-            Shell.Current.GoToAsync("//Physicians");
+            await Shell.Current.GoToAsync("//Physicians");
         }
     }
 }

@@ -4,21 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="App.Clinic.Views.TreatmentView"
     Title="Treatment Details"
-    BackgroundColor="#1e1e2f">
+    BackgroundColor="#1e1e2f"
+    NavigatedTo="TreatmentView_NavigatedTo"
+    >
 
     <StackLayout Padding="20" Spacing="15">
 
-        <!-- Treatment Name -->
         <Label Text="Treatment Name" FontAttributes="Bold" TextColor="White" />
         <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Enter treatment name" 
                BackgroundColor="White" TextColor="Black" />
 
-        <!-- Uninsured Price -->
         <Label Text="Uninsured Price" FontAttributes="Bold" TextColor="White" />
         <Entry Text="{Binding UninsuredPrice, Mode=TwoWay}" Placeholder="Enter price" Keyboard="Numeric" 
                BackgroundColor="White" TextColor="Black" />
 
-        <!-- Action Buttons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
             <Button Text="OK" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
                     CornerRadius="20" Padding="10,5" WidthRequest="100"/>

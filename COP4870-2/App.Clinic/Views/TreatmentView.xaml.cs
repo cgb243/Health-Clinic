@@ -14,6 +14,7 @@ namespace App.Clinic.Views
         public TreatmentView()
         {
             InitializeComponent();
+            this.NavigatedTo += TreatmentView_NavigatedTo;
         }
 
         private void TreatmentView_NavigatedTo(object sender, NavigatedToEventArgs e)

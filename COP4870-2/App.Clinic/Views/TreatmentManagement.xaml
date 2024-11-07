@@ -9,7 +9,6 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
 
-        <!-- Search Bar -->
         <Grid Padding="10" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -22,7 +21,6 @@
                     CornerRadius="20" Padding="10,5"/>
         </Grid>
 
-        <!-- Treatment List -->
         <ListView ItemsSource="{Binding Treatments}" SelectedItem="{Binding SelectedTreatment}" 
                   BackgroundColor="#2a2a3a" SeparatorVisibility="None" HasUnevenRows="True">
             <ListView.ItemTemplate>
@@ -56,7 +54,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Action Buttons -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
             <Button Text="Add" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
                     CornerRadius="20" Padding="10,5" WidthRequest="100"/>

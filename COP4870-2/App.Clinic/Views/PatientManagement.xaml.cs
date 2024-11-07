@@ -21,7 +21,7 @@ public partial class PatientManagement : ContentPage, INotifyPropertyChanged
 		Shell.Current.GoToAsync("//MainPage");
     }
 
-    private void AddClicked(object sender, EventArgs e)
+    private  void AddClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//PatientDetails?patientId=0");
     }
