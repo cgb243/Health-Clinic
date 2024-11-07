@@ -36,6 +36,18 @@
         Title="Appointment Details"
         ContentTemplate="{DataTemplate views:AppointmentView}"
         Route="AppointmentDetails" />
+    <ShellContent
+        Title="Insurance Details"
+        ContentTemplate="{DataTemplate views:InsuranceDetails}"
+        Route="InsuranceDetails" />
+    <ShellContent
+        Title="Manage Treatments"
+        ContentTemplate="{DataTemplate views:TreatmentManagement}"
+        Route="Treatments" />
+    <ShellContent
+        Title="Treatment Details"
+        ContentTemplate="{DataTemplate views:TreatmentView}"
+        Route="TreatmentDetails" />
     
 
 </Shell>

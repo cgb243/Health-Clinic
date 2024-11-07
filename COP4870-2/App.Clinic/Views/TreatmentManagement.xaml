@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Clinic.Views.TreatmentManagement"
+             x:Name="TreatmentManagementPage"
+             Title="Treatment Management"
+             NavigatedTo="TreatmentManagement_NavigatedTo"
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Search Bar -->
+        <Grid Padding="10" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Text="{Binding Query, Mode=TwoWay}" Placeholder="Search treatments..." 
+                   BackgroundColor="White" TextColor="Black"/>
+            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5"/>
+        </Grid>
+
+        <!-- Treatment List -->
+        <ListView ItemsSource="{Binding Treatments}" SelectedItem="{Binding SelectedTreatment}" 
+                  BackgroundColor="#2a2a3a" SeparatorVisibility="None" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding Id}" FontAttributes="Bold" TextColor="White"/>
+                            <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" Margin="10,0,0,0"/>
+                            <Label Grid.Column="2" Text="{Binding UninsuredPrice, StringFormat='${0:F2}'}" TextColor="White" Margin="10,0,0,0"/>
+                            <StackLayout Grid.Column="3" Orientation="Horizontal" HorizontalOptions="End" Spacing="5">
+                                <Button Text="Edit"
+                                        Command="{Binding BindingContext.EditCommand, Source={x:Reference TreatmentManagementPage}}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                                        CornerRadius="20" Padding="10,5"/>
+                                <Button Text="Delete"
+                                        Command="{Binding BindingContext.DeleteCommand, Source={x:Reference TreatmentManagementPage}}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="#d9534f" TextColor="White" FontAttributes="Bold" 
+                                        CornerRadius="20" Padding="10,5"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Action Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
+            <Button Text="Add" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Edit" Clicked="EditClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Delete" Clicked="DeleteClicked" BackgroundColor="#d9534f" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Cancel" Clicked="CancelClicked" BackgroundColor="#6c757d" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+        </StackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

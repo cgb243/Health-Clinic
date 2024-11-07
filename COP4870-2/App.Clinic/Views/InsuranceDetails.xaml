@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Clinic.Views.InsuranceDetails"
+             Title="Insurance Details"
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Header Row for Treatments Table -->
+        <Grid Padding="10" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="0" Text="Treatment Name" HorizontalTextAlignment="Center"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="1" Text="Uninsured Price" HorizontalTextAlignment="Center"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="2" Text="Insurance Coverage" HorizontalTextAlignment="Center"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="3" Text="Insured Price" HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <!-- Treatments List -->
+        <ListView ItemsSource="{Binding Treatments}" BackgroundColor="#2a2a3a" SeparatorVisibility="None" RowHeight="-1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding Title}" TextColor="White" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding UninsuredPrice, StringFormat='${0:F2}'}" TextColor="White" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="2" Text="{Binding InsuranceCoverage, StringFormat='${0:F2}'}" TextColor="White" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="3" Text="{Binding InsuredPrice, StringFormat='${0:F2}'}" TextColor="White" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Back Button -->
+        <Button Text="Go Back" Clicked="BackClicked" 
+                BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                CornerRadius="20" Padding="10,5" HorizontalOptions="Center" WidthRequest="150"/>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -42,6 +42,12 @@ public class PatientController: ControllerBase
       return new PatientEC().AddOrUpdate(patient);
    }
 
+   [HttpPost("Search")]
+   public List<PatientDTO> Search([FromBody] Query q)
+   {
+      return new PatientEC().Search(q?.Content ?? string.Empty)?.ToList() ?? new List<PatientDTO>();
+   }
+
 }
 
 

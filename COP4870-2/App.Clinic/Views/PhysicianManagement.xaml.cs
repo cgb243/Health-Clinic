@@ -23,14 +23,14 @@ public partial class PhysicianManagement : ContentPage, INotifyPropertyChanged
 
     private void AddClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//PhysicianDetails?patientId=0");
+        Shell.Current.GoToAsync("//PhysicianDetails?physicianId=0");
     }
 
     private void EditClicked(object sender, EventArgs e)
     {
         var selectedPhysicianId = (BindingContext as PhysicianManagementViewModel)?
             .SelectedPhysician?.Id ?? 0;
-        Shell.Current.GoToAsync($"//PhysicianDetails?patientId={selectedPhysicianId}");
+        Shell.Current.GoToAsync($"//PhysicianDetails?physicianId={selectedPhysicianId}");
     }
 
     private void DeleteClicked(object sender, EventArgs e)

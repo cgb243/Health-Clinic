@@ -14,7 +14,7 @@ public class PatientEC
     {
         get
         {
-            return FakeDatabase.Patients.Select(p=> new PatientDTO(p));
+            return FakeDatabase.Patients.Take(100).Select(p=> new PatientDTO(p));
         }
     }
 
@@ -48,4 +48,12 @@ public class PatientEC
         }
         return FakeDatabase.AddOrUpdatePatient(new Patient(patient));
     } 
+
+    public IEnumerable<PatientDTO>? Search(string query)
+    {
+        return FakeDatabase.Patients
+            .Where(p => p.Name.ToUpper()
+            .Contains(query?.ToUpper() ?? string.Empty))
+            .Select(p => new PatientDTO(p));
+    }
 }

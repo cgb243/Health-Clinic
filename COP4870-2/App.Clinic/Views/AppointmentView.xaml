@@ -4,55 +4,89 @@
              x:Class="App.Clinic.Views.AppointmentView"
              Title="Appointment Details"
              NavigatedTo="AppointmentView_NavigatedTo"
-             >
-    <VerticalStackLayout>
-        <Grid>
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Title Entry -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Title:"/>
-            <Entry Grid.Column="1" Text="{Binding Name}"/>
+            <Label Grid.Column="0" Text="Title:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <Entry Grid.Column="1" Text="{Binding Name}" Placeholder="Enter appointment title" 
+                   BackgroundColor="White" TextColor="Black" />
         </Grid>
-        <Grid>
+
+        <!-- Patient Picker -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Patient:"/>
-            <Picker Grid.Column="1" ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}"/>
+            <Label Grid.Column="0" Text="Patient:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <Picker Grid.Column="1" ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}" 
+                    BackgroundColor="White" TextColor="Black" />
         </Grid>
-        <Grid>
+
+        <!-- Physician Picker -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Physician:"/>
-            <Picker Grid.Column="1" ItemsSource="{Binding Physicians}" SelectedItem="{Binding SelectedPhysician}"/>
+            <Label Grid.Column="0" Text="Physician:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <Picker Grid.Column="1" ItemsSource="{Binding Physicians}" SelectedItem="{Binding SelectedPhysician}" 
+                    BackgroundColor="White" TextColor="Black"  />
         </Grid>
-        <Grid>
+
+        <!-- Date, Time, and Duration Pickers -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Date:"/>
-            <DatePicker Grid.Column="1" Date="{Binding StartDate}" MinimumDate="{Binding MinStartDate}"/>
-            <Label Grid.Column="2" Text="Time:"/>
-            <Picker Grid.Column="3" ItemsSource="{Binding StartTimes}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedStartTime}"/>
-            <Label Grid.Column="4" Text="Appointment Length:"/>
-            <Picker Grid.Column="5" ItemsSource="{Binding DurationOptions}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedDurationOption}"/>
+            <Label Grid.Column="0" Text="Date:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <DatePicker Grid.Column="1" Date="{Binding StartDate}" MinimumDate="{Binding MinStartDate}" 
+                     />
+            <Label Grid.Column="2" Text="Time:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <Picker Grid.Column="3" ItemsSource="{Binding StartTimes}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedStartTime}" 
+                    BackgroundColor="White" TextColor="Black" />
+            <Label Grid.Column="4" Text="Length:" FontAttributes="Bold" TextColor="White" VerticalTextAlignment="Center"/>
+            <Picker Grid.Column="5" ItemsSource="{Binding DurationOptions}" ItemDisplayBinding="{Binding DisplayText}" SelectedItem="{Binding SelectedDurationOption}" 
+                    BackgroundColor="White" TextColor="Black" />
         </Grid>
-        <Button
-            Text="Ok"
-            Clicked="AddClicked"
-            />
-        <Button
-            Text="Cancel"
-            Clicked="CancelClicked"
-            />
+
+        <!-- Treatments Label -->
+        <Label Text="Treatments:" FontAttributes="Bold" TextColor="White" Margin="10,0,0,0"/>
+
+        <!-- Treatments CollectionView -->
+        <CollectionView ItemsSource="{Binding Treatments}" Margin="0,10,0,0">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="Auto,*" Padding="5">
+                        <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="{Binding Treatment.Title}" TextColor="White" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Action Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20" Margin="0,20,0,0">
+            <Button Text="Ok" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Cancel" Clicked="CancelClicked" BackgroundColor="#d9534f" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+        </StackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

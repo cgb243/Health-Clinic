@@ -1,5 +1,6 @@
 using Library.Clinic.Models;
 using Library.Clinic.Services;
+using Library.Clinic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,8 @@ namespace App.Clinic.ViewModels
 
         public ICommand? DeleteCommand { get; set; }
         public ICommand? EditCommand { get; set; }
+
+        public ICommand? InsuranceDetails {get; set; }
 
         public int Id
         {
@@ -252,6 +255,7 @@ namespace App.Clinic.ViewModels
             Model = new Appointment();
             InitializePropertiesFromModel();
             SetupCommands();
+            LoadAvailableTreatments();
         }
 
         public AppointmentViewModel(Appointment? _model)
@@ -259,6 +263,7 @@ namespace App.Clinic.ViewModels
             Model = _model ?? new Appointment();
             InitializePropertiesFromModel();
             SetupCommands();
+            LoadAvailableTreatments();
         }
 
         private void InitializePropertiesFromModel()
@@ -290,6 +295,26 @@ namespace App.Clinic.ViewModels
             SelectedPhysician = Model.physician ?? PhysicianServiceProxy.Current.Physicians.FirstOrDefault(p => p.Id == Model.PhysicianId);
 
             RefreshTime();
+        }
+
+        private void LoadAvailableTreatments()
+        {
+            // Load all available treatments
+            Treatments = new ObservableCollection<TreatmentSelectionViewModel>(
+                TreatmentServiceProxy.Current.Treatments.Select(t => new TreatmentSelectionViewModel(t))
+            );
+
+            // If editing an existing appointment, mark the selected treatments
+            if (Model.Treatments != null)
+            {
+                foreach (var treatment in Treatments)
+                {
+                    if (Model.Treatments.Any(mt => mt.Id == treatment.Treatment.Id))
+                    {
+                        treatment.IsSelected = true;
+                    }
+                }
+            }
         }
 
        
@@ -331,6 +356,8 @@ namespace App.Clinic.ViewModels
         {
             DeleteCommand = new Command(DoDelete);
             EditCommand = new Command((p) => DoEdit(p as AppointmentViewModel));
+            InsuranceDetails = new Command((p)=> DoInsuranceDetails(p as AppointmentViewModel));
+
         }
 
         private void DoDelete()
@@ -352,16 +379,33 @@ namespace App.Clinic.ViewModels
             Shell.Current.GoToAsync($"//AppointmentDetails?appointmentId={selectedAppointmentId}");
         }
 
+        private void DoInsuranceDetails(AppointmentViewModel? pvm)
+        {
+            if (pvm == null)
+            {
+                return;
+            }
+            var selectedAppointmentId = pvm.Id;
+            Shell.Current.GoToAsync($"//InsuranceDetails?appointmentId={selectedAppointmentId}");
+        }
+
         public async Task ExecuteAddAsync()
         {
             if (Model != null)
             {
                 RefreshTime();
-                bool conflict = await AppointmentServiceProxy
+
+                // Get selected treatments
+                Model.Treatments = Treatments
+                    .Where(t => t.IsSelected)
+                    .Select(t => t.Treatment)
+                    .ToList();
+
+                bool success = await AppointmentServiceProxy
                     .Current
                     .AddOrUpdateAppointment(Model);
 
-                if (!conflict)
+                if (!success)
                 {
                     await Shell.Current.DisplayAlert("Conflict", "The appointment you want to schedule either has conflicts or is outside of Business Hours.", "OK");
                 }
@@ -375,5 +419,13 @@ namespace App.Clinic.ViewModels
                 await Shell.Current.GoToAsync("//Appointments");
             }
         }
+
+
+        public ObservableCollection<TreatmentSelectionViewModel> Treatments { get; set; }
+
     }
+
+   
+
+
 }

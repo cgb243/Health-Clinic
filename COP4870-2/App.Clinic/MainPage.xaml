@@ -1,14 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Clinic.MainPage">
+             x:Class="App.Clinic.MainPage"
+             BackgroundColor="#1e1e2f">
 
     <ScrollView>
-        <VerticalStackLayout>
-            <Button Grid.Row="0" Text="Manage Patients" Clicked="PatientsClicked"/>
-            <Button Grid.Row="1" Text="Manage Physicians" Clicked="PhysiciansClicked"/>
-            <Button Grid.Row="2" Text="Manage Appointments" Clicked="AppointmentsClicked" />
-        </VerticalStackLayout>
+        <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Padding="20" Spacing="10">
+            <Button Text="Manage Patients" Clicked="PatientsClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" 
+                    FontAttributes="Bold" FontSize="Medium"
+                    CornerRadius="20" Padding="15,10" 
+                    WidthRequest="250" HorizontalOptions="Center" />
+
+            <Button Text="Manage Physicians" Clicked="PhysiciansClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" 
+                    FontAttributes="Bold" FontSize="Medium"
+                    CornerRadius="20" Padding="15,10" 
+                    WidthRequest="250" HorizontalOptions="Center" />
+
+            <Button Text="Manage Appointments" Clicked="AppointmentsClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" 
+                    FontAttributes="Bold" FontSize="Medium"
+                    CornerRadius="20" Padding="15,10" 
+                    WidthRequest="250" HorizontalOptions="Center" />
+
+            <Button Text="Manage Treatments" Clicked="TreatmentsClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" 
+                    FontAttributes="Bold" FontSize="Medium"
+                    CornerRadius="20" Padding="15,10" 
+                    WidthRequest="250" HorizontalOptions="Center" />
+        </StackLayout>
     </ScrollView>
 
 </ContentPage>

@@ -135,6 +135,11 @@ public class AppointmentServiceProxy
         return false; 
     }
 
+    public Appointment? GetAppointmentById(int appointmentId)
+    {
+        return Appointments.FirstOrDefault(p => p.Id == appointmentId);
+    }
+
 
     private bool IsWithinBusinessHours(DateTime? startTime, DateTime? endTime)
     {

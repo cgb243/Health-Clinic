@@ -2,60 +2,79 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PatientManagement"
-             Title="PatientManagement"
+             Title="Patient Management"
              NavigatedTo="PatientManagement_NavigatedTo"
-             >
-    <VerticalStackLayout>
-        <Grid>
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Search and Sort Section -->
+        <Grid Padding="10" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="12*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Text="{Binding Query}"/>
-            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked"/>
+            <Entry Grid.Column="0" Text="{Binding Query}" Placeholder="Search..." 
+                   BackgroundColor="White" TextColor="Black" 
+                   HorizontalOptions="FillAndExpand"/>
+            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" 
+                    FontAttributes="Bold" CornerRadius="20" Padding="10"/> <!-- Change to SearchClicked-->
+            <Picker Grid.Column="2" ItemsSource="{Binding SortChoices}" SelectedItem="{Binding SortChoice}" 
+                    BackgroundColor="White" TextColor="Black"  />
         </Grid>
-                <Grid>
+
+        <!-- Header Row for Patient List -->
+        <Grid Padding="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label FontAttributes="Bold" Grid.Column="0" Text="Id"/>
-            <Label FontAttributes="Bold" Grid.Column="1" Text="Name"/>
-            <Label FontAttributes="Bold" Grid.Column="2" Text="Insurance"/>
-            <Label FontAttributes="Bold" Grid.Column="3" Text="Edit"/>
-            <Label FontAttributes="Bold" Grid.Column="4" Text="Delete"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="0" Text="Id"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="1" Text="Name"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="2" Text="Insurance"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="3" Text="Edit"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="4" Text="Delete"/>
         </Grid>
-        <ListView
-            ItemsSource="{Binding Patients}"
-            SelectedItem="{Binding SelectedPatient}"
-            >
+
+        <!-- Patient List -->
+        <ListView ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}"
+                  BackgroundColor="#2a2a3a" SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid Padding="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="10*"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
-                            <Label Grid.Column="1" Text="{Binding Name}"/>
-                            <Label Grid.Column="2" Text="{Binding InsurancePlan}"/>
-                            <Button Grid.Column="3" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"/>
-                            <Button Grid.Column="4" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
+                            <Label FontAttributes="Bold" TextColor="White" Grid.Column="0" Text="{Binding Id}"/>
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="White"/>
+                            <Label Grid.Column="2" Text="{Binding InsurancePlan}" TextColor="White"/>
+                            <Button Grid.Column="3" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}" 
+                                    BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10"/>
+                            <Button Grid.Column="4" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked" 
+                                    BackgroundColor="#d9534f" TextColor="White" CornerRadius="20" Padding="10"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add" Clicked="AddClicked"/>
-        <Button Text="Edit" Clicked="EditClicked"/>
-        <Button Text="Delete" Clicked="DeleteClicked"/>
-        <Button Text="Cancel" Clicked="CancelClicked" />
+
+        <!-- Action Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
+            <Button Text="Add" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Edit" Clicked="EditClicked" BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Delete" Clicked="DeleteClicked" BackgroundColor="#d9534f" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Cancel" Clicked="CancelClicked" BackgroundColor="#6c757d" TextColor="White" CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+        </StackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

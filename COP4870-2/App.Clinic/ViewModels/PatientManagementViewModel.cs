@@ -13,6 +13,19 @@ namespace App.Clinic.ViewModels
 {
     public class PatientManagementViewModel: INotifyPropertyChanged
     {
+        private SortChoiceEnum _sortChoice;
+
+        public PatientManagementViewModel()
+        {
+            SortChoices = new List<SortChoiceEnum>
+            {
+               SortChoiceEnum.None
+                , SortChoiceEnum.NameAscending
+                , SortChoiceEnum.NameDescending
+            };
+
+            SortChoice = SortChoiceEnum.NameAscending;
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -20,21 +33,66 @@ namespace App.Clinic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public SortChoiceEnum SortChoice{
+            get => _sortChoice;
+            set
+            {
+                if (_sortChoice != value)
+                {
+                    _sortChoice = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(Patients));
+                }   
+            }
+            
+        
+        }
+
+
+        
+
+        public List<SortChoiceEnum> SortChoices{get; set;}
+
+        private SortChoiceEnum sortChoice {
+            get{
+                return sortChoice;
+            }
+            set{
+                if(sortChoice != value)
+                {
+                    sortChoice = value;
+                    NotifyPropertyChanged("Patients");
+                }
+            }
+        }
+
+
+
         public PatientViewModel? SelectedPatient { get; set; }
         public string? Query {get; set; }
         public ObservableCollection<PatientViewModel> Patients
         {
             get
             {
-                return new ObservableCollection<PatientViewModel>(
+                var retVal = new ObservableCollection<PatientViewModel>(
                     PatientServiceProxy
                     .Current
                     .Patients
                     .Where(p=>p != null)
                     .Where(p => p.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
-                    .Take(100)
                     .Select(p => new PatientViewModel(p))
                     );
+
+                if(SortChoice == SortChoiceEnum.NameAscending)
+                {
+                    return new ObservableCollection<PatientViewModel>(retVal.OrderBy(p=>p.Name));
+                }
+                else
+                {
+                    return new ObservableCollection<PatientViewModel>(retVal.OrderByDescending(p=>p.Name));
+                }
+
+            
             }
         }
 
@@ -53,5 +111,14 @@ namespace App.Clinic.ViewModels
         {
             NotifyPropertyChanged(nameof(Patients));
         }
+
+        // public async void Search()
+        // {
+        //     if (Query != null)
+        //     {
+        //         await PatientServiceProxy.Current.Search(Query);
+        //     }
+        //     Refresh();
+        // }
     }
 }

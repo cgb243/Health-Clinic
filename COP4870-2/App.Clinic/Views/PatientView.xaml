@@ -2,33 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PatientView"
-             Title="PatientView"
+             Title="Patient View"
              NavigatedTo="PatientView_NavigatedTo"
-             >
-    <VerticalStackLayout>
-        <Grid>
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Name Field -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Name:"/>
-            <Entry Grid.Column="1" Text="{Binding Name}"/>
+            <Label Grid.Column="0" Text="Name:" TextColor="White" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+            <Entry Grid.Column="1" Text="{Binding Name}" Placeholder="Enter name" 
+                   BackgroundColor="White" TextColor="Black"/>
         </Grid>
-        <Grid>
+
+        <!-- Insurance Field -->
+        <Grid Padding="10" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Insurance:"/>
-            <Picker Grid.Column="1" ItemsSource="{Binding Insurances}" SelectedItem="{Binding SelectedInsurance}"/>
+            <Label Grid.Column="0" Text="Insurance:" TextColor="White" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+            <Picker Grid.Column="1" ItemsSource="{Binding Insurances}" SelectedItem="{Binding SelectedInsurance}" 
+                    BackgroundColor="White" TextColor="Black"/>
         </Grid>
-        <Button
-            Text="Ok"
-            Clicked="AddClicked"
-            />
-        <Button
-            Text="Cancel"
-            Clicked="CancelClicked"
-            />
+
+        <!-- Action Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
+            <Button Text="Ok" Clicked="AddClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Cancel" Clicked="CancelClicked" 
+                    BackgroundColor="#d9534f" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+        </StackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

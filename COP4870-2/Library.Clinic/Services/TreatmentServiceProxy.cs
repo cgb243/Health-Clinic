@@ -123,4 +123,40 @@ public class TreatmentServiceProxy
     {
         return Treatments.FirstOrDefault(i => i.Id == TreatmentId);
     }
+
+    public void AddOrUpdateTreatment(Treatment treatment)
+    {
+        bool isAdd = false;
+        if (treatment.Id <= 0)
+        {
+            treatment.Id = LastKey + 1;
+            isAdd = true;
+        }
+        if (isAdd)
+        {
+            Treatments.Add(treatment);
+        }
+    }
+
+    public int LastKey
+    {
+        get
+        {
+            if(Treatments.Any())
+            {
+                return Treatments.Select(x => x.Id).Max();
+            }
+            return 0;
+        }
+    }
+
+    public void DeleteTreatment(int id) {
+        var patientToRemove = Treatments.FirstOrDefault(p => p.Id == id);
+
+        if (patientToRemove != null)
+        {
+            Treatments.Remove(patientToRemove);
+                
+        }
+    }
 }

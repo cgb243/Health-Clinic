@@ -51,7 +51,7 @@ public class InsuranceServiceProxy
             {
                 Title = "Basic Health Plan",
                 insuranceId = 1,
-                CoveragePercentage = 0.8m 
+                CoveragePercentage = 0.5m 
             },
             new Insurance
             {
@@ -63,19 +63,19 @@ public class InsuranceServiceProxy
             {
                 Title = "Standard Health Plan",
                 insuranceId = 3,
-                CoveragePercentage = 0.75m 
+                CoveragePercentage = 0.8m 
             },
             new Insurance
             {
                 Title = "Family Health Plan",
                 insuranceId = 4,
-                CoveragePercentage = 0.85m 
+                CoveragePercentage = 0.95m 
             },
             new Insurance
             {
                 Title = "Senior Health Plan",
                 insuranceId = 5,
-                CoveragePercentage = 0.8m
+                CoveragePercentage = 0.4m
             }
 
         };

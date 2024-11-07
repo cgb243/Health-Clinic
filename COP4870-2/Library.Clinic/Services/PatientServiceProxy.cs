@@ -23,7 +23,7 @@ namespace Library.Clinic.Services
         {
             get
             {
-                lock(_lock)
+                lock (_lock)
                 {
                     if (instance == null)
                     {
@@ -33,7 +33,10 @@ namespace Library.Clinic.Services
                 return instance;
             }
         }
-
+        public Patient? GetPatientById(int patientId)
+        {
+            return Patients.FirstOrDefault(p => p.Id == patientId);
+        }
         private static PatientServiceProxy? instance;
         private PatientServiceProxy()
         {
@@ -172,6 +175,14 @@ namespace Library.Clinic.Services
                 // await new WebRequestHandler().Delete($"/Patient/{id}");
             }
         }
+
+        // public async Task<List<PatientDTO>> Search(string query) {
+        //     var patientsPayload = await new WebRequestHandler()
+        //         .Post("/Patient/Search", new Query(query));
+        //     Patients = JsonConvert.DeserializeObject<List<PatientDTO>>(patientsPayload)
+        //         ?? new List<PatientDTO>();
+        //     return Patients;
+        // }
 
         
     }

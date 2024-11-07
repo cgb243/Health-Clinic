@@ -2,19 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.AppointmentManagement"
-             Title="AppointmentManagement"
+             Title="Appointment Management"
              NavigatedTo="AppointmentManagement_NavigatedTo"
-             >
-    <VerticalStackLayout>
-        <Grid>
+             BackgroundColor="#1e1e2f">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Search Bar -->
+        <Grid Padding="10" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="12*"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Text="{Binding Query}"/>
-            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked"/>
+            <Entry Grid.Column="0" Text="{Binding Query}" Placeholder="Search appointments..." 
+                   BackgroundColor="White" TextColor="Black"/>
+            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked" 
+                    BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5"/>
         </Grid>
-        <Grid>
+
+        <!-- Appointment List Header -->
+        <Grid Padding="5" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -30,29 +38,28 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label FontAttributes="Bold" Grid.Column="0" Text="Id"/>
-            <Label FontAttributes="Bold" Grid.Column="1" Text="Appointment Title"/>
-            <Label FontAttributes="Bold" Grid.Column="2" Text="Patient Name"/>
-            <Label FontAttributes="Bold" Grid.Column="3" Text="Physician Name"/>
-            <Label FontAttributes="Bold" Grid.Column="4" Text="Start Date"/>
-            <Label FontAttributes="Bold" Grid.Column="5" Text="Start Time"/>
-            <Label FontAttributes="Bold" Grid.Column="6" Text="Duration"/>
-            <Label FontAttributes="Bold" Grid.Column="7" Text="Health Insurance"/>
-            <Label FontAttributes="Bold" Grid.Column="8" Text="Treatments"/>
-            <Label FontAttributes="Bold" Grid.Column="9" Text="Visit Cost"/>
-            <Label FontAttributes="Bold" Grid.Column="10" Text="Insurance Details"/>
-            <Label FontAttributes="Bold" Grid.Column="11" Text="Edit"/>
-            <Label FontAttributes="Bold" Grid.Column="12" Text="Delete"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="0" Text="Id"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="1" Text="Appointment Title"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="2" Text="Patient Name"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="3" Text="Physician Name"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="4" Text="Start Date"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="5" Text="Start Time"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="6" Text="Duration"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="7" Text="Health Insurance"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="8" Text="Treatments"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="9" Text="Visit Cost"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="10" Text="Insurance Details"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="11" Text="Edit"/>
+            <Label FontAttributes="Bold" TextColor="White" Grid.Column="12" Text="Delete"/>
         </Grid>
 
-        <ListView
-            ItemsSource="{Binding Appointments}"
-            SelectedItem="{Binding SelectedAppointment}"
-            RowHeight="-1">
+        <!-- Appointment List -->
+        <ListView ItemsSource="{Binding Appointments}" SelectedItem="{Binding SelectedAppointment}" 
+                  BackgroundColor="#2a2a3a" SeparatorVisibility="None" RowHeight="-1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid Padding="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -68,27 +75,40 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
-                            <Label Grid.Column="1" Text="{Binding Name}"/>
-                            <Label Grid.Column="2" Text="{Binding PatientName}"/>
-                            <Label Grid.Column="3" Text="{Binding PhysicianName}"/>
-                            <Label Grid.Column="4" Text="{Binding StartDateDisplay}"/>
-                            <Label Grid.Column="5" Text="{Binding StartTimeDisplay}"/>
-                            <Label Grid.Column="6" Text="{Binding DurationDisplay}"/>
-                            <Label Grid.Column="7" Text="{Binding InsurancePlan}"/>
-                            <Label Grid.Column="8" Text="{Binding TreatmentTitlesDisplay}" LineBreakMode="WordWrap" VerticalOptions="Start" MaxLines="5"/>
-                            <Label Grid.Column="9" Text="{Binding AppointmentCostDisplay}"/>
-                            <Button Grid.Column="10" Text="Details" Command="{Binding InsuranceDetails}" CommandParameter="{Binding}" />
-                            <Button Grid.Column="11" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}"  />
-                            <Button Grid.Column="12" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
+                            <Label FontAttributes="Bold" TextColor="White" Grid.Column="0" Text="{Binding Id}"/>
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="White"/>
+                            <Label Grid.Column="2" Text="{Binding PatientName}" TextColor="White"/>
+                            <Label Grid.Column="3" Text="{Binding PhysicianName}" TextColor="White"/>
+                            <Label Grid.Column="4" Text="{Binding StartDateDisplay}" TextColor="White"/>
+                            <Label Grid.Column="5" Text="{Binding StartTimeDisplay}" TextColor="White"/>
+                            <Label Grid.Column="6" Text="{Binding DurationDisplay}" TextColor="White"/>
+                            <Label Grid.Column="7" Text="{Binding InsurancePlan}" TextColor="White"/>
+                            <Label Grid.Column="8" Text="{Binding TreatmentTitlesDisplay}" TextColor="White" 
+                                   LineBreakMode="WordWrap" VerticalOptions="Start" MaxLines="5"/>
+                            <Label Grid.Column="9" Text="{Binding AppointmentCostDisplay}" TextColor="White"/>
+                            <Button Grid.Column="10" Text="Details" Command="{Binding InsuranceDetails}" CommandParameter="{Binding}" 
+                                    BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5"/>
+                            <Button Grid.Column="11" Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}" 
+                                    BackgroundColor="#8e7cc3" TextColor="White" CornerRadius="20" Padding="10,5"/>
+                            <Button Grid.Column="12" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked" 
+                                    BackgroundColor="#d9534f" TextColor="White" CornerRadius="20" Padding="10,5"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add" Clicked="AddClicked"/>
-        <Button Text="Edit" Clicked="EditClicked"/>
-        <Button Text="Delete" Clicked="DeleteClicked"/>
-        <Button Text="Cancel" Clicked="CancelClicked" />
+
+        <!-- Action Buttons -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,15,0,0">
+            <Button Text="Add" Clicked="AddClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Edit" Clicked="EditClicked" BackgroundColor="#8e7cc3" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Delete" Clicked="DeleteClicked" BackgroundColor="#d9534f" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+            <Button Text="Cancel" Clicked="CancelClicked" BackgroundColor="#6c757d" TextColor="White" FontAttributes="Bold" 
+                    CornerRadius="20" Padding="10,5" WidthRequest="100"/>
+        </StackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

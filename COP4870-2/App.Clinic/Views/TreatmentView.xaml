@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App.Clinic.Views.PhysicianView"
-             Title="Physician View"
-             NavigatedTo="PhysicianView_NavigatedTo"
-             BackgroundColor="#1e1e2f">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="App.Clinic.Views.TreatmentView"
+    Title="Treatment Details"
+    BackgroundColor="#1e1e2f">
 
     <StackLayout Padding="20" Spacing="15">
 
-        <!-- Physician Name Label and Entry -->
-        <Label Text="Physician Name" FontAttributes="Bold" TextColor="White"/>
-        <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Enter Physician name" 
+        <!-- Treatment Name -->
+        <Label Text="Treatment Name" FontAttributes="Bold" TextColor="White" />
+        <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Enter treatment name" 
+               BackgroundColor="White" TextColor="Black" />
+
+        <!-- Uninsured Price -->
+        <Label Text="Uninsured Price" FontAttributes="Bold" TextColor="White" />
+        <Entry Text="{Binding UninsuredPrice, Mode=TwoWay}" Placeholder="Enter price" Keyboard="Numeric" 
                BackgroundColor="White" TextColor="Black" />
 
         <!-- Action Buttons -->
